@@ -24,7 +24,7 @@
 #define BOLD_WHITE	"\033[1;37m"
 
 //*** write function macro ***
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 //*** philo states ***
 typedef enum e_status

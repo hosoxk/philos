@@ -15,7 +15,7 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 		philo->first_fork = &forks[(philo_position + 1) % philo_nbr];
 		philo->second_fork = &forks[philo_position];
 	}
-/*	printf("philo[%d] first fork: %d\n", philo->id, philo->first_fork->fork_id);
+	/*printf("philo[%d] first fork: %d\n", philo->id, philo->first_fork->fork_id);
 	printf("philo[%d] second fork: %d\n", philo->id, philo->second_fork->fork_id);*/
 }
 
