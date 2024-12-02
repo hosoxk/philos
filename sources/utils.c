@@ -6,7 +6,7 @@
 /*   By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:15:15 by yde-rudd          #+#    #+#             */
-/*   Updated: 2024/12/02 15:15:17 by yde-rudd         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:42:41 by yde-rudd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	precise_usleep(long usec, t_table *table)
 		elapsed = get_time(MICROSECOND) - start;
 		rem = usec - elapsed;
 		if (rem > 1e3)
-			usleep(rem / 2); //!!!!!!!!!!!!!!!!!!! usec / 2 ????????
+			usleep(rem / 2);
 		else
 		{
 			//SPINLOCK
@@ -56,6 +56,23 @@ void	precise_usleep(long usec, t_table *table)
 				;
 		}
 	}
+}
+
+void	clean(t_table *table)
+{
+	t_philo	*philo;
+	int	i;
+
+	i = -1;
+	while (++i < table->philo_nbr)
+	{
+		philo = table->philos + i;
+		safe_mutex_handle(&philo->philo_mutex, DESTROY);
+	}
+	safe_mutex_handle(&table->write_mutex, DESTROY);
+	safe_mutex_handle(&table->table_mutex, DESTROY);
+	free(table->forks);
+	free(table->philos);
 }
 
 void	error_exit(const char *error)

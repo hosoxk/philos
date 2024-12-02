@@ -6,37 +6,37 @@
 /*   By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:13:34 by yde-rudd          #+#    #+#             */
-/*   Updated: 2024/12/02 15:43:33 by yde-rudd         ###   ########.fr       */
+/*   Updated: 2024/12/02 17:01:01 by yde-rudd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdbool.h>
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h> //mutex and threads
-#include <sys/time.h> //gettimeofday
-#include <limits.h> //INT_MAX
-#include <errno.h>
+# include <stdbool.h>
+# include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <pthread.h> //mutex and threads
+# include <sys/time.h> //gettimeofday
+# include <limits.h> //INT_MAX
+# include <errno.h>
 
 //*** ANSI escape sequences for bold text colors ***
 // Usage: printf(BOLD_RED "This text is bold red!" RESET "\n");
 
-#define RESET		"\033[0m"
-#define BOLD_RED	"\033[1;31m"
-#define BOLD_GREEN	"\033[1;32m"
-#define BOLD_YELLOW	"\033[1;33m"
-#define BOLD_BLUE	"\033[1;34m"
-#define BOLD_MAGENTA	"\033[1;35m"
-#define BOLD_CYAN	"\033[1;36m"
-#define BOLD_WHITE	"\033[1;37m"
+# define RESET		"\033[0m"
+# define BOLD_RED	"\033[1;31m"
+# define BOLD_GREEN	"\033[1;32m"
+# define BOLD_YELLOW	"\033[1;33m"
+# define BOLD_BLUE	"\033[1;34m"
+# define BOLD_MAGENTA	"\033[1;35m"
+# define BOLD_CYAN	"\033[1;36m"
+# define BOLD_WHITE	"\033[1;37m"
 
 //*** write function macro ***
-#define DEBUG_MODE 0
+# define DEBUG_MODE 0
 
 //*** philo states ***
 typedef enum e_status
@@ -50,7 +50,7 @@ typedef enum e_status
 }	t_philo_status;
 
 //*** OPCODE for mutex | thread functions
-typedef enum	e_opcode
+typedef enum e_opcode
 {
 	LOCK,
 	UNLOCK,
@@ -76,15 +76,15 @@ typedef pthread_mutex_t	t_mtx;
 //IOU for compiler
 typedef struct s_table	t_table;
 
-typedef struct	s_fork
+typedef struct s_fork
 {
+	int		fork_id;
 	t_mtx	fork;
-	int	fork_id;
 }	t_fork;
 
 typedef struct s_philo
 {
-	int		id;
+	int			id;
 	long		meals_counter;
 	bool		full;
 	long		last_meal_time; //time passed from last meal
@@ -95,7 +95,7 @@ typedef struct s_philo
 	t_table		*table;
 }	t_philo;
 
-typedef struct	s_table
+typedef struct s_table
 {
 	long		philo_nbr;
 	long		time_to_die;
@@ -126,11 +126,13 @@ void	error_exit(const char *error);
 long	get_time(t_time_code time_code);
 void	precise_usleep(long usec, t_table *table);
 void	wait_all_threads(t_table *table);
+void	clean(t_table *table);
 
 //safe functions
 void	*safe_malloc(size_t bytes);
 void	safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
-void	safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode);
+void	safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
+			void *data, t_opcode opcode);
 
 //synchro utils
 void	wait_all_threads(t_table *table);
@@ -156,4 +158,4 @@ void	*monitor_dinner(void *data);
 void	increase_long(t_mtx *mutex, long *value);
 bool	all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
 
-# endif
+#endif
