@@ -1,8 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dinner.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 15:14:09 by yde-rudd          #+#    #+#             */
+/*   Updated: 2024/12/02 15:41:54 by yde-rudd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philo.h"
 
 static void	thinking(t_philo *philo)
 {
 	write_status(THINKING, philo, DEBUG_MODE);
+}
+
+static void	*lone_philo(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	wait_all_threads(philo->table);
+	set_long(&philo->philo_mutex, &philo->last_meal_time, get_time(MILLISECOND));
+	increase_long(&philo->table->table_mutex, &philo->table->threads_running_nbr);
+	write_status(TAKE_FIRST_FORK, philo, DEBUG_MODE);
+	while (!simulation_finished(philo->table))
+		usleep (200);
+	return (NULL);
 }
 
 static void	eat(t_philo *philo)
@@ -32,8 +58,13 @@ void	*dinner_simulation(void *data)
 	philo = (t_philo *)data;
 	wait_all_threads(philo->table);	//spinlock --> not the best performance wise
 	//set last meal time
+	set_long(&philo->philo_mutex, &philo->last_meal_time, get_time(MILLISECOND));
+	//synchro with monitor, increase a table variable
+	increase_long(&philo->table->table_mutex, &philo->table->threads_running_nbr);
+	//set last meal time
 	while (!simulation_finished(philo->table))
 	{
+		usleep(100);
 		//1) am i full?
 		if (philo->full)
 			break ;
@@ -56,7 +87,7 @@ void	dinner_start(t_table *table)
 	if (table->nbr_limit_meals == 0)
 		return ;
 	else if (table->philo_nbr == 1)
-		;
+		safe_thread_handle(&table->philos[0].thread_id, lone_philo, &table->philos[0], CREATE);
 	else	//create all threads
 	{
 		while (++i < table->philo_nbr)

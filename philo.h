@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 15:13:34 by yde-rudd          #+#    #+#             */
+/*   Updated: 2024/12/02 15:43:33 by yde-rudd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -137,10 +149,11 @@ void	write_status(t_philo_status status, t_philo *philo, bool debug);
 
 //dinner simulation
 void	dinner_start(t_table *table);
-void	*lone_philo(void *arg);
 void	*dinner_simulation(void *data);
 
 //monitor
 void	*monitor_dinner(void *data);
+void	increase_long(t_mtx *mutex, long *value);
+bool	all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
 
 # endif

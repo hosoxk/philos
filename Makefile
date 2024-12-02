@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/12/02 15:13:49 by yde-rudd          #+#    #+#              #
+#    Updated: 2024/12/02 15:22:45 by yde-rudd         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = philo
 CC = cc
 CFLAGS = -g3 -Wall -Werror -Wextra
@@ -13,7 +25,8 @@ SRC_FILES = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/dinner.c \
 		$(SRC_DIR)/write.c \
 		$(SRC_DIR)/getters_setters.c \
-		$(SRC_DIR)/synchro_utils.c 
+		$(SRC_DIR)/synchro_utils.c \
+		$(SRC_DIR)/monitor.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 15:14:28 by yde-rudd          #+#    #+#             */
+/*   Updated: 2024/12/02 15:27:33 by yde-rudd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philo.h"
 
 static void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
@@ -49,6 +61,7 @@ void	init_data(t_table *table)
 	i = -1;
 	table->all_threads_ready = false;
 	table->end_simulation = false;
+	table->threads_running_nbr = 0;
 	table->philos = safe_malloc(sizeof (t_philo) * table->philo_nbr);
 	table->forks = safe_malloc(sizeof (t_fork) * table->philo_nbr);
 	safe_mutex_handle(&table->table_mutex, INIT);
@@ -58,6 +71,5 @@ void	init_data(t_table *table)
 		safe_mutex_handle(&table->forks[i].fork, INIT);
 		table->forks[i].fork_id = i;
 	}
-	printf("Philo nbr = %ld\n", table->philo_nbr);
 	init_philo(table);
 }
