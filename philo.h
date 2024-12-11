@@ -6,7 +6,7 @@
 /*   By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:13:34 by yde-rudd          #+#    #+#             */
-/*   Updated: 2024/12/02 17:01:01 by yde-rudd         ###   ########.fr       */
+/*   Updated: 2024/12/11 16:09:10 by yde-rudd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
 void	wait_all_threads(t_table *table);
 void	increase_long(t_mtx *mutex, long *value);
 bool	all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
+void	de_synchronize_philos(t_philo *philo);
 
 //setters and getters
 void	set_bool(t_mtx *mutex, bool *dest, bool value);
@@ -150,6 +151,7 @@ bool	simulation_finished(t_table *table);
 void	write_status(t_philo_status status, t_philo *philo, bool debug);
 
 //dinner simulation
+void	thinking(t_philo *philo, bool pre_simulation);
 void	dinner_start(t_table *table);
 void	*dinner_simulation(void *data);
 

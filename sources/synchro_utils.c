@@ -6,7 +6,7 @@
 /*   By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:15:05 by yde-rudd          #+#    #+#             */
-/*   Updated: 2024/12/02 15:43:51 by yde-rudd         ###   ########.fr       */
+/*   Updated: 2024/12/11 16:11:57 by yde-rudd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,18 @@ void	increase_long(t_mtx *mutex, long *value)
 	safe_mutex_handle(mutex, LOCK);
 	(*value)++;
 	safe_mutex_handle(mutex, UNLOCK);
+}
+
+void	de_synchronize_philos(t_philo *philo)
+{
+	if (philo->table->philo_nbr % 2 == 0)
+	{
+		if (philo->id % 2 == 0)
+			precise_usleep(3e4, philo->table);
+	}
+	else
+	{
+		if (philo->id % 2)
+			thinking(philo, true);
+	}
 }
