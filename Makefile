@@ -6,7 +6,7 @@
 #    By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/02 15:13:49 by yde-rudd          #+#    #+#              #
-#    Updated: 2024/12/02 15:22:45 by yde-rudd         ###   ########.fr        #
+#    Updated: 2024/12/11 15:15:40 by yde-rudd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = philo
 CC = cc
 CFLAGS = -g3 -Wall -Werror -Wextra
 MAKEFLAGS += -s
+PROJECTFLAGS = -lpthread
 
 SRC_DIR = ./sources
 
@@ -42,7 +43,7 @@ $(NAME): $(OBJ_FILES)
 	@echo "$(MAGENTA)Using compiler: $(CC)$(RESET)"
 	@echo "$(MAGENTA)Using flags: $(CFLAGS) $(RESET)"
 	@echo "$(YELLOW)Linking $(NAME) to $(OBJ_FILES)...$(RESET)"
-	$(CC) $(CFLAGS) $(OBJ_FILES) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ_FILES) -o $(NAME) $(PROJECTFLAGS)
 	@echo "$(GREEN)Compilation $(NAME) successfull!$(RESET)"
 
 %.o: %.c
