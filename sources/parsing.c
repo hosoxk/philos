@@ -6,7 +6,7 @@
 /*   By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:14:44 by yde-rudd          #+#    #+#             */
-/*   Updated: 2024/12/02 15:14:45 by yde-rudd         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:13:44 by yde-rudd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static inline bool	is_space(char c)
 {
-	return ((c >= 9 && c <= 13) || c ==32);
+	return ((c >= 9 && c <= 13) || c == 32);
 }
 
 static int	ft_isdigit(int c)
@@ -26,7 +26,7 @@ static int	ft_isdigit(int c)
 
 static const char	*valid_input(const char *str)
 {
-	int		length;
+	int			length;
 	const char	*nbr;
 
 	length = 0;

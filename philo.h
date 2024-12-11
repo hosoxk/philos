@@ -6,7 +6,7 @@
 /*   By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:13:34 by yde-rudd          #+#    #+#             */
-/*   Updated: 2024/12/11 16:09:10 by yde-rudd         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:56:40 by yde-rudd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ typedef struct s_philo
 	int			id;
 	long		meals_counter;
 	bool		full;
-	long		last_meal_time; //time passed from last meal
+	long		last_meal_time;
 	t_fork		*first_fork;
 	t_fork		*second_fork;
 	pthread_t	thread_id;
-	t_mtx		philo_mutex; //useful for races with the monitor
+	t_mtx		philo_mutex;
 	t_table		*table;
 }	t_philo;
 
@@ -103,14 +103,14 @@ typedef struct s_table
 	long		time_to_sleep;
 	long		nbr_limit_meals;
 	long		start_simulation;
-	bool		end_simulation; //a philo dies or all philos are full
-	bool		all_threads_ready; //synchronize philos
+	bool		end_simulation;
+	bool		all_threads_ready;
 	long		threads_running_nbr;
 	pthread_t	monitor;
-	t_mtx		table_mutex; //avoid races while reading from table
+	t_mtx		table_mutex;
 	t_mtx		write_mutex;
-	t_fork		*forks; //array forks
-	t_philo		*philos; //array philos
+	t_fork		*forks;
+	t_philo		*philos;
 }	t_table;
 
 //*** prototypes ***

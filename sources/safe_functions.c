@@ -6,7 +6,7 @@
 /*   By: yde-rudd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:14:56 by yde-rudd          #+#    #+#             */
-/*   Updated: 2024/12/02 15:14:57 by yde-rudd         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:04:42 by yde-rudd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static void	handle_thread_error(int status, t_opcode opcode)
 			"thread specifies the calling thread");
 }
 
-void	safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode)
+void	safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
+		void *data, t_opcode opcode)
 {
 	if (opcode == CREATE)
 		handle_thread_error(pthread_create(thread, NULL, foo, data), opcode);
@@ -64,11 +65,13 @@ static void	handle_mutex_error(int status, t_opcode opcode)
 	else if (status == EINVAL && INIT == opcode)
 		error_exit("The value specified by attr is invalid");
 	else if (status == EDEADLK)
-		error_exit("A deadlock would occur if the thread blocked waiting for mutex");
+		error_exit("A deadlock would occur if the thread"
+			" blocked waiting for mutex");
 	else if (status == EPERM)
 		error_exit("The current thread does not hold a lock on mutex");
 	else if (status == ENOMEM)
-		error_exit("The process cannot allocate enough memory to create another mutex");
+		error_exit("The process cannot allocate enough memory"
+			" to create another mutex");
 	else if (status == EBUSY)
 		error_exit("Mutex is locked");
 }
